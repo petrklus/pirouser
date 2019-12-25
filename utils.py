@@ -16,7 +16,7 @@ class Command(object):
         self.timeout = timeout
 
     def run(self):
-        #print('-Thread started')
+        # THIS IS NOT SECURE - USES SHELL TRUE. INTERNAL USE ONLY.
         try:
             self.output = subprocess.check_output(self.cmd, shell=True,
                 timeout=self.timeout)
@@ -27,6 +27,38 @@ class Command(object):
         except subprocess.TimeoutExpired as e:
             return 2, b"Timed out"
 
+
+
+class SimpleUpdaterThread(object):
+
+    INTERVAL = 30
+    MAX_AGE = 60
+
+    @classmethod
+    def get_interval(cls):
+        return cls.INTERVAL
+
+    def __init__(self):
+        self.age = self.MAX_AGE
+
+        thread = threading.Thread(target=self._run, args=())
+        thread.daemon = True                            # Daemonize thread
+        thread.start()                                  # Start the execution
+
+    def _run(self):
+        """ Method that runs forever """
+        while True:
+            self.update()
+            time.sleep(self.INTERVAL)
+
+    def is_stale(self):
+        return self.age >= self.MAX_AGE
+
+    def mark_update_success(self):
+        self.age = 0
+
+    def update(self):
+        raise NotImplementedError
 
 if __name__ == "__main__":
     cmd = b"echo 'Process started'; sleep 2; echo 'Process finished'"
