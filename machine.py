@@ -2,6 +2,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, unicode_literals
 
+import time
+
+from utils import SimpleUpdaterThread, Command
+
+
 class MonitoredMachine(SimpleUpdaterThread):
     INTERVAL = 30
 

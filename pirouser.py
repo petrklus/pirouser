@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function, unicode_literals, with_statement
 
-import threading
 import time
 import datetime
 
 from machine import MockMonitoredMachine
-from ups import MockMonitoredMachine
+from ups import MockUPSChecker
+from utils import SimpleUpdaterThread
 
 
 class PiRouser(SimpleUpdaterThread):
