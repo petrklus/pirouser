@@ -8,17 +8,9 @@ It is common for many operating systems to be able to shut itself down when UPS 
 * The power outage may not drain the UPS fully, thus never triggering the event
 * There may be another outage following the first event, which may catch the system mid-boot, without enough battery reserve to finish booting up and then to shut down again safely.
 
-### Prerequisites
+## Project status
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
-### Installing
-
-The project is work in progress
+The project is work in progress. Basic login has been implemented, commands to fetch UPS status from NUT and then commands to wake target machine UP are pending implementation.
 
 ## Deployment
 
