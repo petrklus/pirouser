@@ -32,7 +32,7 @@ class UPSChecker(SimpleUpdaterThread):
 
 class MockUPSChecker(UPSChecker):
 
-    INTERVAL = 3
+    INTERVAL = 15
 
     def __init__(self, *args, **kwargs):
         self.tick_counter = 0
