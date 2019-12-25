@@ -25,6 +25,7 @@ class PiRouser(SimpleUpdaterThread):
 
     def update(self):
         has_enough_charge = self.checker.has_enough_charge()
+        has_mainspower = self.checker.has_power()
 
         print("T{}".format(datetime.datetime.now()))
         print("Checking....")
@@ -43,9 +44,11 @@ class PiRouser(SimpleUpdaterThread):
                 print(" Machine is not up")
                 print(" Charge level:", self.checker.get_charge_level())
 
-                if has_enough_charge:
+                if has_enough_charge and has_mainspower:
                     print(" Enough charge, attempting machine power-on...")
                     ret = self.machine.turn_on()
                     print(" Attempted turn on result: ", ret)
-                else:
+                elif not has_enough_charge:
                     print(" Not enougn charge, waiting further...")
+                elif not has_mainspower:
+                    print(" Mains power not restored, waiting further...")

@@ -44,6 +44,10 @@ class MockUPSChecker(UPSChecker):
     def get_charge_level(self):
         return min(1, self.tick_counter/10.0)
 
+    def has_power(self):
+        return True
+
     def update(self):
         self.tick_counter += 0.5
+        self.tick_counter = min(100, self.tick_counter)
         self.mark_update_success()
